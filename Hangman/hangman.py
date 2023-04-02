@@ -1,5 +1,6 @@
 import random
 from Color_Console import *
+from playsound import playsound
 
 # coppied this from the internet 😶
 HANGMAN = (
@@ -158,6 +159,7 @@ while wrong_counter < maxWrongGuess and the_word != word:
 if wrong_counter == maxWrongGuess:
     ctext(HANGMAN[wrong_counter], 'red')
     ctext("You've been hanged!!!", 'white')
+    playsound('sound_effect\haha.mp3')
 
 else:
     print("\nYou guessed it!")
