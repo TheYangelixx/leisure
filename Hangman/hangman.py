@@ -123,18 +123,25 @@ ctext("This game is super roomokh, but a 'friend' had written so I had to, too..
 
 while wrong_counter < maxWrongGuess and the_word != word:
     
-    ctext(HANGMAN[wrong_counter], 'red')
+    ctext(HANGMAN[wrong_counter], 'magenta')
     ctext(f"\nYou've tried the following letters:\n {already_guessed}", "white")
     ctext(f"\nYou've just been able to guess: :\t {the_word}", "white")
     guess = input("Enter your guess:\t").upper()
 
+    if len(guess) > 1:
+        ctext("You've got to enter only ONE character", "red")
+        guess = input("Guess again:\t").upper()
+    elif not guess.isalpha():
+        ctext('The set of guesses must be selected from the alphabet', "red")
+        guess = input("Guess again:\t").upper()
+    
     if guess in already_guessed:
         ctext(f"You've already guessed the letter:\t {guess}", 'white')
         guess = input("Guess again:\t").upper()
     already_guessed.append(guess)
 
     if guess in word:
-        ctext(f"You guessed '{guess}' correctly! (Finally)", 'magenta')
+        ctext(f"You guessed '{guess}' correctly! (Finally)", 'green')
 
         new = ""
         for i in range(len(word)):
@@ -145,7 +152,7 @@ while wrong_counter < maxWrongGuess and the_word != word:
         the_word = new
 
     else:
-        ctext(f"\nHaha {guess} isn't in the word😈", 'magenta')
+        ctext(f"\nHaha {guess} isn't in the word😈", 'red')
         wrong_counter += 1
 
 if wrong_counter == maxWrongGuess:
