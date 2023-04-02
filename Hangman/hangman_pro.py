@@ -1,4 +1,3 @@
-
 from tkinter import *
 from tkinter import messagebox
 # this module contains the English letters from A to Z only in uppercase as a string
@@ -19,11 +18,16 @@ photos = [PhotoImage(file="F:\Games\Hangman\images\hang0.png"), PhotoImage(file=
             PhotoImage(file="F:\Games\Hangman\images\hang9.png"), PhotoImage(file="F:\Games\Hangman\images\hang10.png"), PhotoImage(file="F:\Games\Hangman\images\hang11.png")]
 
 def start():
-    global the_word_withSpaces, numberOfGuesses
+    global the_word_withSpaces, numberOfGuesses, the_word
     numberOfGuesses = 0
     the_word=random.choice(WORDS)
     the_word_withSpaces = " ".join(the_word)
     lblWord.set(' '.join("_"*len(the_word)))
+
+def restart():
+	ans = messagebox.askquestion(title='Restart', message='Do u really wanna start again?')
+	if ans == 'yes':
+		start()
 
 def guess(letter):
 	global numberOfGuesses
@@ -42,7 +46,13 @@ def guess(letter):
 			numberOfGuesses += 1
 			imgLabel.config(image=photos[numberOfGuesses])
 			if numberOfGuesses==11:
+					messagebox.showinfo(title='Anwser', message=f'The anwser was {the_word}')
 					playsound('F:\Games\Hangman\sound_effect\haha.mp3')
+
+def exitNow():
+	ans = messagebox.askquestion(title='Exit', message='Are u sure u wanna exit the game?')
+	if ans == 'yes':
+		exit()
 
 imgLabel=Label(root)
 imgLabel.grid(row=0, column=0, columnspan=3, padx=10, pady=40)
@@ -55,8 +65,8 @@ for c in ascii_uppercase:
     Button(root, text=c, command=lambda c=c: guess(c), font=('Helvetica 18'), width=4).grid(row=1+n//7,column=n%7)
     n+=1
 
-Button(root, text="New\nGame", command=start, font=("Helvetica 10 bold")).grid(row=4, column=6)
-Button(root, text="Exit", command=exit, font=("Helvetica 10 bold")).grid(row=4, column=5)
+Button(root, text="New\nGame", command=restart, font=("Helvetica 10 bold")).grid(row=4, column=6)
+Button(root, text="Exit", command=exitNow, font=("Helvetica 10 bold")).grid(row=4, column=5)
 
 start()
 root.mainloop()
