@@ -1,3 +1,4 @@
+
 from tkinter import *
 from tkinter import messagebox
 # this module contains the English letters from A to Z only in uppercase as a string
@@ -51,10 +52,11 @@ Label(root, textvariable =lblWord, font=('consolas 24 bold')).grid(row=0, column
 
 n=0
 for c in ascii_uppercase:
-    Button(root, text=c, command=lambda c=c: guess(c), font=('Helvetica 18'), width=4).grid(row=1+n//9,column=n%9)
+    Button(root, text=c, command=lambda c=c: guess(c), font=('Helvetica 18'), width=4).grid(row=1+n//7,column=n%7)
     n+=1
 
-Button(root, text="New\nGame", command=start, font=("Helvetica 10 bold")).grid(row=3, column=8)
+Button(root, text="New\nGame", command=start, font=("Helvetica 10 bold")).grid(row=4, column=6)
+Button(root, text="Exit", command=exit, font=("Helvetica 10 bold")).grid(row=4, column=5)
 
 start()
 root.mainloop()
